@@ -1,0 +1,15 @@
+# Ignore Python cache
+**/__pycache__/
+*.pyc
+
+# Ignore system files
+.DS_Store
+__MACOSX/
+
+# Ignore zip and temporary files
+*.zip
+
+# Ignore virtual environments
+venv/
+ENV/
+env/
