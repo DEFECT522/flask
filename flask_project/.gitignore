@@ -1,10 +1,7 @@
-
-__MACOSX/
-*.zip
-
-
-**/__pycache__/
-
-
+# Ignore external folders
+../__MACOSX/
 ../flaskapp/
-../.gitignore
+../*.zip
+
+# Ignore cache
+**/__pycache__/
