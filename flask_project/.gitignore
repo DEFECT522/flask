@@ -1,7 +1,7 @@
-# Ignore external folders
+flaskapp/
 ../__MACOSX/
-../flaskapp/
-../*.zip
+*.zip
+*.pyc
 
 # Ignore cache
 **/__pycache__/
