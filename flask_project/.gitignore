@@ -1,0 +1,5 @@
+echo "__MACOSX/" >> .gitignore
+echo "flaskapp/" >> .gitignore
+echo "*.zip" >> .gitignore
+git add .gitignore
+git commit -m "Ignore unnecessary system files and zip"
