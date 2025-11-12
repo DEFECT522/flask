@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{% block title %}Pythonic{% endblock %}</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+  <!-- Google Font (optional) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f9fa;
+      min-height: 100vh;
+      display:flex;
+      flex-direction:column;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: #212529;
+    }
+    .navbar-brand {
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 1.25rem;
+      cursor: default; /* not clickable */
+    }
+    .nav-link {
+      color: #f8f9fa !important;
+      transition: transform .14s ease, color .14s ease;
+    }
+    .nav-link:hover {
+      color: #00bcd4 !important;
+      transform: scale(1.05);
+    }
+
+    /* small username badge */
+    .user-badge {
+      color: #cfeffd;
+      margin-left: .6rem;
+      font-weight:600;
+    }
+
+    /* Footer */
+    footer {
+      background: #212529;
+      color: #d0d6da;
+      margin-top: auto;
+      padding: 42px 0 28px 0;
+    }
+    footer h5 { color: #00bcd4; margin-bottom: 14px; font-weight:600; }
+    footer a { color: #adb5bd; text-decoration:none; transition:color .14s ease, transform .14s ease; }
+    footer a:hover { color: #00bcd4; transform: scale(1.04); }
+
+    /* make footer taller and spaced */
+    .footer-col { padding: 12px; }
+    .footer-bottom { border-top: 1px solid #343a40; margin-top: 22px; padding-top: 18px; color:#adb5bd; font-size: .92rem; }
+  </style>
+
+  {% block head_extra %}{% endblock %}
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+      <!-- Brand as plain text (not a link) -->
+      <span class="navbar-brand">Pythonic</span>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navMain">
+        <ul class="navbar-nav ms-auto align-items-center">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('main.home') }}">Home</a>
+          </li>
+
+          {% if current_user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('users.logout') }}">Logout</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('goals.goals_dashboard') }}">Dashboard</a>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('users.login') }}">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('users.register') }}">Register</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="flex-grow-1">
+    <div class="container my-5">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }} text-center">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      {% block content %}{% endblock %}
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 footer-col text-center text-md-start">
+          <h5>About</h5>
+          <p class="small mb-0">Pythonic helps you track daily goals and maintain consistent progress across the year.</p>
+        </div>
+
+        <div class="col-md-4 footer-col text-center text-md-start">
+          <h5>Quick links</h5>
+          <ul class="list-unstyled small mb-0">
+            <li><a href="{{ url_for('main.home') }}">Home</a></li>
+            {% if current_user.is_authenticated %}
+            <li><a href="{{ url_for('main.home') }}">My Dashboard</a></li>
+            {% else %}
+            <li><a href="{{ url_for('users.login') }}">Login</a></li>
+            {% endif %}
+          </ul>
+        </div>
+
+        <div class="col-md-4 footer-col text-center text-md-start">
+          <h5>Contact</h5>
+          <p class="small mb-2">omar@oghoneim.com</p>
+          <div>
+            <a class="me-2" href="#"><i class="bi bi-twitter"></i></a>
+            <a class="me-2" href="#"><i class="bi bi-facebook"></i></a>
+            <a class="me-2" href="#"><i class="bi bi-instagram"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom text-center mt-4">
+        © 2025 Pythonic — All rights reserved
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>
