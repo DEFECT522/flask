@@ -1,7 +1,18 @@
-flaskapp/
-../__MACOSX/
-*.zip
+# Ignore environment folders
+venv/
+ENV/
+env/
+
+# Ignore Python cache
+**/__pycache__/
 *.pyc
 
-# Ignore cache
-**/__pycache__/
+# Ignore system files
+.DS_Store
+__MACOSX/
+
+# Ignore temporary or zip files
+*.zip
+
+# Ignore project-specific folders that are external or temporary
+flaskapp/
